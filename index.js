@@ -1,11 +1,20 @@
-'use strict';
+const fetch = require('node-fetch');
+const cheerio = require('cheerio');
 
-module.exports = (input, opts) => {
-  if (typeof input !== 'string') {
-    throw new TypeError(`Expected a string, got ${typeof input}`);
-  }
+async function parsePage(pageNumber) {
+  const html = await fetch(`http://www.tneu.edu.ua/news/page/${pageNumber}`).then(resp =>
+    resp.text()
+  );
+  const $ = cheerio.load(html);
+  const articles = $('#dle-content').find('.well');
 
-  opts = opts || {};
+  articles.each(function() {
+    const title = $(this)
+      .find('h4')
+      .text();
 
-  return input + ' & ' + (opts.postfix || 'rainbows');
-};
+    console.log(title);
+  });
+}
+
+parsePage(1);

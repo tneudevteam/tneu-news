@@ -23,8 +23,8 @@
     "eslint": "^4.15.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.5.0",
-    "jest": "^22.1.2",
     "husky": "^0.15.0-beta.16",
+    "jest": "^22.1.2",
     "lint-staged": "^6.0.0",
     "prettier": "^1.9.2"
   },
@@ -38,5 +38,9 @@
   },
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "node-fetch": "^2.1.1"
   }
 }

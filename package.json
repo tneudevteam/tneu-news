@@ -20,6 +20,7 @@
   "files": ["src/", "!src/*.mock.html", "!src/*.test.js"],
   "keywords": [],
   "dependencies": {
+    "bytes": "^3.0.0",
     "cheerio": "^1.0.0-rc.2",
     "date-fns": "^1.29.0",
     "lodash": "^4.17.5",

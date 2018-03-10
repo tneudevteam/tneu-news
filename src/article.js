@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const cheerio = require('cheerio');
+const bytes = require('bytes');
 const {normalizeSpace} = require('normalize-space-x');
 const {getNewsArticlePageHTML} = require('./fetch');
 
@@ -36,11 +37,28 @@ function getAttachments($article) {
       const $attachmentLink = $attachment.find('a');
       const url = $attachmentLink.attr('href');
       const name = normalizeSpace($attachmentLink.text());
-      const metadataRaw = $attachment.remove('a').text();
 
-      console.log(metadataRaw);
-
-      return {url, name};
+      return {url, name, ...getAttachmentMetadata($attachment)};
     })
     .get();
+}
+
+function getAttachmentMetadata($attachment) {
+  const metadataRaw = $attachment.remove('a').text();
+  const fileSizeRaw = _.head(metadataRaw.match(/\[.+\]/));
+  const downloadsCountRaw = _.head(metadataRaw.match(/\(.+\)/));
+
+  return {
+    fileSizeBytes: getFileSizeBytes(fileSizeRaw),
+    downloadsCount: getDownloadsCount(downloadsCountRaw)
+  };
+}
+
+function getFileSizeBytes(fileSizeRaw) {
+  const fileSizeHumanized = fileSizeRaw.replace('[', '').replace(']', '');
+  return bytes(fileSizeHumanized);
+}
+
+function getDownloadsCount(downloadsCountRaw) {
+  return Number(_.head(downloadsCountRaw.match(/\d+/)));
 }

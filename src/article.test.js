@@ -29,15 +29,21 @@ it('should return array of article attachments', async () => {
   expect(attachments).toEqual([
     {
       url: 'http://www.tneu.edu.ua/engine/download.php?id=5065',
-      name: 'Інформаційний лист'
+      name: 'Інформаційний лист',
+      fileSizeBytes: 311664,
+      downloadsCount: 12
     },
     {
       url: 'http://www.tneu.edu.ua/engine/download.php?id=5063',
-      name: 'Information letter'
+      name: 'Information letter',
+      fileSizeBytes: 282869,
+      downloadsCount: 3
     },
     {
       url: 'http://www.tneu.edu.ua/engine/download.php?id=5064',
-      name: 'Заявка на участь'
+      name: 'Заявка на участь',
+      fileSizeBytes: 247265,
+      downloadsCount: 5
     }
   ]);
 });

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "TNEU News Parser",
   "license": "MIT",
-  "repository": "vladgolubev/tneu-news",
+  "repository": "tneudevteam/tneu-news",
   "author": {
     "name": "Vlad Holubiev",
     "email": "golubev.vld@gmail.com",
@@ -18,6 +18,7 @@
     "test": "jest"
   },
   "files": ["src/", "!src/*.mock.html", "!src/*.test.js"],
+  "main": "src/newsfeed.js",
   "keywords": [],
   "dependencies": {
     "bytes": "^3.0.0",
@@ -33,7 +34,7 @@
     "eslint-plugin-prettier": "^2.5.0",
     "husky": "^0.15.0-beta.16",
     "jest": "^22.1.2",
-    "lint-staged": "^6.0.0",
+    "lint-staged": "^7.0.0",
     "prettier": "^1.9.2"
   },
   "husky": {

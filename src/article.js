@@ -11,7 +11,8 @@ module.exports.parseArticle = async function(url) {
 
   return {
     author: getAuthor(subtitle),
-    content: getContent($article)
+    content: getContent($article),
+    attachments: getAttachments($article)
   };
 };
 
@@ -25,4 +26,21 @@ function getContent($article) {
   const textLinesNormalized = textLines.map(normalizeSpace);
 
   return textLinesNormalized.join('\n');
+}
+
+function getAttachments($article) {
+  return $article
+    .find('.attachment')
+    .map(function(i, el) {
+      const $attachment = cheerio(el);
+      const $attachmentLink = $attachment.find('a');
+      const url = $attachmentLink.attr('href');
+      const name = normalizeSpace($attachmentLink.text());
+      const metadataRaw = $attachment.remove('a').text();
+
+      console.log(metadataRaw);
+
+      return {url, name};
+    })
+    .get();
 }

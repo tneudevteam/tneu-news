@@ -24,6 +24,24 @@ it('should return article author', async () => {
   expect(author).toEqual(`Відділ інформації та зв'язків з громадськістю`);
 });
 
+it('should return array of article attachments', async () => {
+  const {attachments} = await parseArticle('');
+  expect(attachments).toEqual([
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5065',
+      name: 'Інформаційний лист'
+    },
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5063',
+      name: 'Information letter'
+    },
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5064',
+      name: 'Заявка на участь'
+    }
+  ]);
+});
+
 it('should return article content', async () => {
   const {content} = await parseArticle('');
   expect(content).toEqual(

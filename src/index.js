@@ -5,6 +5,7 @@ const {parse} = require('date-fns');
 const {getPageHTML} = require('./fetch');
 
 const dateRegex = /\d+-\d+-\d+, \d+:\d+/;
+const baseHost = 'www.tneu.edu.ua';
 
 module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await getPageHTML(`http://www.tneu.edu.ua/news/page/${pageNumber}`);
@@ -24,8 +25,10 @@ module.exports.parsePage = async function parsePage(pageNumber) {
       .find('a')
       .last()
       .attr('href');
+    const relativeImageURL = article.find('img').attr('src');
+    const imageURL = `http://${baseHost}${relativeImageURL}`;
 
-    news.push({title, description, publishedAt, topic, newsPageURL});
+    news.push({title, description, publishedAt, imageURL, topic, newsPageURL});
   });
 
   return news;

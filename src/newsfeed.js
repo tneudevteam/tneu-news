@@ -1,11 +1,8 @@
 const cheerio = require('cheerio');
 const {normalizeSpace} = require('normalize-space-x');
-const _ = require('lodash');
-const {parse} = require('date-fns');
 const {getPageHTML} = require('./fetch');
 const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./parsers/topic');
-
-const dateRegex = /\d+-\d+-\d+, \d+:\d+/;
+const {getPublishedAtDateFromSubtitle} = require('./parsers/date');
 
 module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await getPageHTML(`http://www.tneu.edu.ua/news/page/${pageNumber}`);
@@ -28,7 +25,7 @@ function getPageItems($articles) {
       const title = getTitle(article);
       const description = getDescription(article);
       const subtitle = getSubtitle(article);
-      const publishedAt = getPublishedAt(subtitle);
+      const publishedAt = getPublishedAtDateFromSubtitle(subtitle);
       const topic = getTopicFromSubtitle(subtitle);
       const primaryTopic = getPrimaryTopic(topic);
       const secondaryTopic = getSecondaryTopic(topic);
@@ -39,10 +36,10 @@ function getPageItems($articles) {
         title,
         description,
         publishedAt,
-        imageURL,
         topic,
         primaryTopic,
         secondaryTopic,
+        imageURL,
         newsPageURL
       };
     })
@@ -59,11 +56,6 @@ function getDescription($article) {
 
 function getSubtitle($article) {
   return $article.find('.highlight').text();
-}
-
-function getPublishedAt(subtitle) {
-  const dateRaw = _.head(subtitle.match(dateRegex));
-  return parse(dateRaw);
 }
 
 function getNewsPageURL($article) {

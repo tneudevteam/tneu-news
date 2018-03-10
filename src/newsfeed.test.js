@@ -36,7 +36,7 @@ it('should parse date and time properly', async () => {
     title: 'Зі святом весни, дорогі жінки!',
     description:
       'Весна – це завше час нових надій і сподівань, час, коли пробуджується природа, огортаючи все навкруги теплом і яскравими фарбами. Варто лише трохи зачекати і ясні сонячні промені будуть тішити нас й заряджати позитивним настроєм, додаючи життєвої енергії та бадьорості.',
-    publishedAt: new Date('Tue Jul 03 2018 18:54:00 GMT+0300 (EEST)'),
+    publishedAt: new Date('Wed Mar 07 2018 18:54:00 GMT+0200 (EET)'),
     imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520415669_267b2322.jpg',
     topic: 'Новини',
     primaryTopic: 'Новини',

@@ -87,7 +87,7 @@ it('should parse date and time properly', async () => {
     imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg',
     newsPageURL:
       'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html',
-    publishedAt: new Date('Wed Mar 07 2018 18:48:00 GMT+0200 (EET)'),
+    publishedAt: new Date('Wed Mar 07 2018 16:48:00 GMT+0000 (EET)'),
     ...mockArticle
   });
 });

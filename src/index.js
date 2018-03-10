@@ -1,5 +1,7 @@
 const cheerio = require('cheerio');
 const {normalizeSpace} = require('normalize-space-x');
+const _ = require('lodash');
+const {parse} = require('date-fns');
 const {getPageHTML} = require('./fetch');
 
 module.exports.parsePage = async function parsePage(pageNumber) {
@@ -12,8 +14,11 @@ module.exports.parsePage = async function parsePage(pageNumber) {
     const article = $(this);
     const title = article.find('h4').text();
     const description = normalizeSpace(article.find('.timg').text());
+    const subtitle = article.find('.highlight').text();
+    const dateRaw = _.head(subtitle.match(/\d+-\d+-\d+, \d+:\d+/));
+    const date = parse(dateRaw);
 
-    news.push({title, description});
+    news.push({title, description, date});
   });
 
   return news;

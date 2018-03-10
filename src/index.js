@@ -16,9 +16,9 @@ module.exports.parsePage = async function parsePage(pageNumber) {
     const description = normalizeSpace(article.find('.timg').text());
     const subtitle = article.find('.highlight').text();
     const dateRaw = _.head(subtitle.match(/\d+-\d+-\d+, \d+:\d+/));
-    const date = parse(dateRaw);
+    const publishedAt = parse(dateRaw);
 
-    news.push({title, description, date});
+    news.push({title, description, publishedAt});
   });
 
   return news;

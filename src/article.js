@@ -10,10 +10,19 @@ module.exports.parseArticle = async function(url) {
   const subtitle = $article.find('.highlight').text();
 
   return {
-    author: getAuthor(subtitle)
+    author: getAuthor(subtitle),
+    content: getContent($article)
   };
 };
 
 function getAuthor(subtitle) {
   return normalizeSpace(_.last(subtitle.split('Автор: ')));
+}
+
+function getContent($article) {
+  const textRaw = $article.find('.timg').text();
+  const textLines = textRaw.split('\n');
+  const textLinesNormalized = textLines.map(normalizeSpace);
+
+  return textLinesNormalized.join('\n');
 }

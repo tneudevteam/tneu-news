@@ -4,7 +4,7 @@ const {readFileSync} = require('fs');
 const {resolve} = require('path');
 const _ = require('lodash');
 const {getPageHTML} = require('./fetch');
-const {parsePage} = require('.');
+const {parsePage} = require('./newsfeed');
 
 beforeAll(() => {
   const mockHtml = readFileSync(resolve(__dirname, './news-list.mock.html'));

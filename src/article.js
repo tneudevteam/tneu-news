@@ -13,7 +13,8 @@ module.exports.parseArticle = async function(url) {
   return {
     author: getAuthor(subtitle),
     content: getContent($article),
-    attachments: getAttachments($article)
+    attachments: getAttachments($article),
+    images: getImages($article)
   };
 };
 
@@ -61,4 +62,19 @@ function getFileSizeBytes(fileSizeRaw) {
 
 function getDownloadsCount(downloadsCountRaw) {
   return Number(_.head(downloadsCountRaw.match(/\d+/)));
+}
+
+function getImages($article) {
+  return $article
+    .find('a.highslide')
+    .map(function(i, el) {
+      const $a = cheerio(el);
+      const $img = $a.find('img');
+
+      return {
+        fullSizeURL: $a.attr('href'),
+        thumbnailURL: $img.attr('src')
+      };
+    })
+    .get();
 }

@@ -5,9 +5,11 @@ const {resolve} = require('path');
 const {getNewsArticlePageHTML} = require('./fetch');
 const {parseArticle} = require('./article');
 
+const mockHtmlAttachments = readFileSync(resolve(__dirname, './article-attachments.mock.html'));
+const mockHtmlGallery = readFileSync(resolve(__dirname, './article-gallery.mock.html'));
+
 beforeAll(() => {
-  const mockHtml = readFileSync(resolve(__dirname, './article-attachments.mock.html'));
-  getNewsArticlePageHTML.mockReturnValue(mockHtml);
+  getNewsArticlePageHTML.mockReturnValue(mockHtmlAttachments);
 });
 
 it('should export parseArticle function', () => {
@@ -44,6 +46,102 @@ it('should return array of article attachments', async () => {
       name: 'Заявка на участь',
       fileSizeBytes: 247265,
       downloadsCount: 5
+    }
+  ]);
+});
+
+it('should return array of gallery images', async () => {
+  getNewsArticlePageHTML.mockReturnValueOnce(mockHtmlGallery);
+  const {images} = await parseArticle('');
+
+  expect(images).toEqual([
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408763_slaid1.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408763_slaid1.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408711_slaid2.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408711_slaid2.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408743_slaid3.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408743_slaid3.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408763_slaid4.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408763_slaid4.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408756_slaid5.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408756_slaid5.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408698_slaid6.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408698_slaid6.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408753_slaid7.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408753_slaid7.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408703_slaid8.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408703_slaid8.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408678_slaid9.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408678_slaid9.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408724_slaid10.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408724_slaid10.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408680_slaid11.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408680_slaid11.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408724_slaid12.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408724_slaid12.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408754_slaid13.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408754_slaid13.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408687_slaid14.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408687_slaid14.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408691_slaid15.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408691_slaid15.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408740_slaid16.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408740_slaid16.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408750_slaid17.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408750_slaid17.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408752_slaid18.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408752_slaid18.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408769_slaid19.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408769_slaid19.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408735_slaid20.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408735_slaid20.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408712_slaid21.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408712_slaid21.jpg'
+    },
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520408736_slaid22.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520408736_slaid22.jpg'
     }
   ]);
 });

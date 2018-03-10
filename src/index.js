@@ -20,8 +20,12 @@ module.exports.parsePage = async function parsePage(pageNumber) {
     const dateRaw = _.head(subtitle.match(dateRegex));
     const publishedAt = parse(dateRaw);
     const topic = normalizeSpace(_.last(subtitle.split(dateRegex)));
+    const newsPageURL = article
+      .find('a')
+      .last()
+      .attr('href');
 
-    news.push({title, description, publishedAt, topic});
+    news.push({title, description, publishedAt, topic, newsPageURL});
   });
 
   return news;

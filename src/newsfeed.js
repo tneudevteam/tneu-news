@@ -1,11 +1,11 @@
 const cheerio = require('cheerio');
 const {normalizeSpace} = require('normalize-space-x');
-const {getPageHTML} = require('./fetch');
+const {getNewsFeedPageHTML} = require('./fetch');
 const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./parsers/topic');
 const {getPublishedAtDateFromSubtitle} = require('./parsers/date');
 
 module.exports.parsePage = async function parsePage(pageNumber) {
-  const html = await getPageHTML(`http://www.tneu.edu.ua/news/page/${pageNumber}`);
+  const html = await getNewsFeedPageHTML(pageNumber);
   const $ = cheerio.load(html);
   const articles = $('#dle-content').find('.well');
   const items = getPageItems(articles);

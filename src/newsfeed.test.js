@@ -3,12 +3,12 @@ jest.mock('./fetch');
 const {readFileSync} = require('fs');
 const {resolve} = require('path');
 const _ = require('lodash');
-const {getPageHTML} = require('./fetch');
+const {getNewsFeedPageHTML} = require('./fetch');
 const {parsePage} = require('./newsfeed');
 
 beforeAll(() => {
   const mockHtml = readFileSync(resolve(__dirname, './news-list.mock.html'));
-  getPageHTML.mockReturnValue(mockHtml);
+  getNewsFeedPageHTML.mockReturnValue(mockHtml);
 });
 
 it('should export parsePage function', () => {
@@ -32,16 +32,18 @@ it('should return list of 15 parsed news from page', async () => {
 
 it('should parse date and time properly', async () => {
   const news = await parsePage(1);
-  expect(news.items[0]).toEqual({
-    title: 'Зі святом весни, дорогі жінки!',
+  expect(news.items[1]).toEqual({
+    title:
+      'Запрошуємо молодих науковців, вчених, аспірантів, слухачів магістратури взяти участь у Ювілейній конференції Ради молодих вчених ТНЕУ!',
     description:
-      'Весна – це завше час нових надій і сподівань, час, коли пробуджується природа, огортаючи все навкруги теплом і яскравими фарбами. Варто лише трохи зачекати і ясні сонячні промені будуть тішити нас й заряджати позитивним настроєм, додаючи життєвої енергії та бадьорості.',
-    publishedAt: new Date('Wed Mar 07 2018 18:54:00 GMT+0200 (EET)'),
-    imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520415669_267b2322.jpg',
-    topic: 'Новини',
+      'Ювілейна конференція Ради молодих вчених «Економічний і соціальний розвиток України в ХХІ столітті: національна візія та виклики глобалізації» відбудеться 29-30 березня 2018 року за адресою: м. Тернопіль, вул. Львівська, 11а (11 корпус університету).',
+    topic: 'Новини / Конференції ТНЕУ',
     primaryTopic: 'Новини',
-    secondaryTopic: '',
-    newsPageURL: 'http://www.tneu.edu.ua/news/12904-zi-sviatom-vesny-dorogi-zhinky.html'
+    secondaryTopic: 'Конференції ТНЕУ',
+    imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg',
+    newsPageURL:
+      'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html',
+    publishedAt: new Date('Wed Mar 07 2018 18:48:00 GMT+0200 (EET)')
   });
 });
 

@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const {normalizeSpace} = require('normalize-space-x');
 const {getPageHTML} = require('./fetch');
 
 module.exports.parsePage = async function parsePage(pageNumber) {
@@ -10,7 +11,7 @@ module.exports.parsePage = async function parsePage(pageNumber) {
   articles.each(function() {
     const article = $(this);
     const title = article.find('h4').text();
-    const description = article.find('.timg').text();
+    const description = normalizeSpace(article.find('.timg').text());
 
     news.push({title, description});
   });

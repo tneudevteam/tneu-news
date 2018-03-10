@@ -74,24 +74,6 @@ it('should call parseArticle 15 times for each item', async () => {
   expect(parseArticle).toHaveBeenCalledTimes(15);
 });
 
-it('should parse date and time properly', async () => {
-  const news = await parsePage(1);
-  expect(news.items[1]).toEqual({
-    title:
-      'Запрошуємо молодих науковців, вчених, аспірантів, слухачів магістратури взяти участь у Ювілейній конференції Ради молодих вчених ТНЕУ!',
-    description:
-      'Ювілейна конференція Ради молодих вчених «Економічний і соціальний розвиток України в ХХІ столітті: національна візія та виклики глобалізації» відбудеться 29-30 березня 2018 року за адресою: м. Тернопіль, вул. Львівська, 11а (11 корпус університету).',
-    topic: 'Новини / Конференції ТНЕУ',
-    primaryTopic: 'Новини',
-    secondaryTopic: 'Конференції ТНЕУ',
-    imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg',
-    newsPageURL:
-      'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html',
-    publishedAt: new Date('Wed Mar 07 2018 16:48:00 GMT+0000 (EET)'),
-    ...mockArticle
-  });
-});
-
 it('should return news array in valid format', async () => {
   const news = await parsePage(1);
 

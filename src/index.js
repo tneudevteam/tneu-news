@@ -3,6 +3,7 @@ const {normalizeSpace} = require('normalize-space-x');
 const _ = require('lodash');
 const {parse} = require('date-fns');
 const {getPageHTML} = require('./fetch');
+const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./parsers/topic');
 
 const dateRegex = /\d+-\d+-\d+, \d+:\d+/;
 
@@ -28,7 +29,7 @@ function getPageItems($articles) {
       const description = getDescription(article);
       const subtitle = getSubtitle(article);
       const publishedAt = getPublishedAt(subtitle);
-      const topic = getTopic(subtitle);
+      const topic = getTopicFromSubtitle(subtitle);
       const primaryTopic = getPrimaryTopic(topic);
       const secondaryTopic = getSecondaryTopic(topic);
       const newsPageURL = getNewsPageURL(article);
@@ -63,30 +64,6 @@ function getSubtitle($article) {
 function getPublishedAt(subtitle) {
   const dateRaw = _.head(subtitle.match(dateRegex));
   return parse(dateRaw);
-}
-
-function getTopic(subtitle) {
-  return normalizeSpace(_.last(subtitle.split(dateRegex)));
-}
-
-function getPrimaryTopic(topic) {
-  if (!hasSubtopic(topic)) {
-    return topic;
-  }
-
-  return _.head(topic.split('/'));
-}
-
-function getSecondaryTopic(topic) {
-  if (!hasSubtopic(topic)) {
-    return '';
-  }
-
-  return _.last(topic.split('/'));
-}
-
-function hasSubtopic(topic) {
-  return topic.includes('/');
 }
 
 function getNewsPageURL($article) {

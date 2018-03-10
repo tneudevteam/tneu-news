@@ -10,7 +10,7 @@ module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await getPageHTML(`http://www.tneu.edu.ua/news/page/${pageNumber}`);
   const $ = cheerio.load(html);
   const articles = $('#dle-content').find('.well');
-  const news = [];
+  const items = [];
 
   articles.each(function() {
     const article = $(this);
@@ -22,10 +22,13 @@ module.exports.parsePage = async function parsePage(pageNumber) {
     const newsPageURL = getNewsPageURL(article);
     const imageURL = getImageURL(article);
 
-    news.push({title, description, publishedAt, imageURL, topic, newsPageURL});
+    items.push({title, description, publishedAt, imageURL, topic, newsPageURL});
   });
 
-  return news;
+  return {
+    pageNumber,
+    items
+  };
 };
 
 function getTitle($article) {

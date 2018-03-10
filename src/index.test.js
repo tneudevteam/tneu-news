@@ -15,14 +15,19 @@ it('should export parsePage function', () => {
   expect(parsePage).toBeInstanceOf(Function);
 });
 
+it('should return pageNumber of parsed page', async () => {
+  const news = await parsePage(1);
+  expect(news.pageNumber).toEqual(1);
+});
+
 it('should return list of 15 parsed news from page', async () => {
   const news = await parsePage(1);
-  expect(news).toHaveLength(15);
+  expect(news.items).toHaveLength(15);
 });
 
 it('should parse date and time properly', async () => {
   const news = await parsePage(1);
-  expect(news[0]).toEqual({
+  expect(news.items[0]).toEqual({
     title: 'Зі святом весни, дорогі жінки!',
     description:
       'Весна – це завше час нових надій і сподівань, час, коли пробуджується природа, огортаючи все навкруги теплом і яскравими фарбами. Варто лише трохи зачекати і ясні сонячні промені будуть тішити нас й заряджати позитивним настроєм, додаючи життєвої енергії та бадьорості.',
@@ -37,7 +42,7 @@ it('should return news array in valid format', async () => {
   const news = await parsePage(1);
 
   // hack to avoid cumbersome dates in this test which are tested above
-  const newsWithoutDates = _.map(news, i => _.omit(i, 'publishedAt'));
+  const newsWithoutDates = _.map(news.items, i => _.omit(i, 'publishedAt'));
 
   expect(newsWithoutDates).toEqual([
     {

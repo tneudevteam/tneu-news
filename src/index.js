@@ -19,22 +19,20 @@ module.exports.parsePage = async function parsePage(pageNumber) {
 };
 
 function getPageItems($articles) {
-  const items = [];
+  return $articles
+    .map(function(i, el) {
+      const article = cheerio(el);
+      const title = getTitle(article);
+      const description = getDescription(article);
+      const subtitle = getSubtitle(article);
+      const publishedAt = getPublishedAt(subtitle);
+      const topic = getTopic(subtitle);
+      const newsPageURL = getNewsPageURL(article);
+      const imageURL = getImageURL(article);
 
-  $articles.each(function(i, el) {
-    const article = cheerio(el);
-    const title = getTitle(article);
-    const description = getDescription(article);
-    const subtitle = getSubtitle(article);
-    const publishedAt = getPublishedAt(subtitle);
-    const topic = getTopic(subtitle);
-    const newsPageURL = getNewsPageURL(article);
-    const imageURL = getImageURL(article);
-
-    items.push({title, description, publishedAt, imageURL, topic, newsPageURL});
-  });
-
-  return items;
+      return {title, description, publishedAt, imageURL, topic, newsPageURL};
+    })
+    .get();
 }
 
 function getTitle($article) {
@@ -66,8 +64,6 @@ function getNewsPageURL($article) {
 }
 
 function getImageURL($article) {
-  const baseHost = 'www.tneu.edu.ua';
   const relativeImageURL = $article.find('img').attr('src');
-
-  return `http://${baseHost}${relativeImageURL}`;
+  return `http://www.tneu.edu.ua${relativeImageURL}`;
 }

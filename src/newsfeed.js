@@ -1,22 +1,43 @@
+const _ = require('lodash');
 const cheerio = require('cheerio');
 const {normalizeSpace} = require('normalize-space-x');
 const {getNewsFeedPageHTML} = require('./fetch');
 const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./parsers/topic');
 const {getPublishedAtDateFromSubtitle} = require('./parsers/date');
+const {parseArticle} = require('./article');
 
 module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await getNewsFeedPageHTML(pageNumber);
   const $ = cheerio.load(html);
-  const articles = $('#dle-content').find('.well');
-  const items = getPageItems(articles);
+  const $articles = $('#dle-content').find('.well');
   const totalPages = getTotalPages($);
+  const items = getPageItems($articles);
+  const itemsWithArticleContent = await getPageItemsWithArticleContent(items);
+  const itemsWithArticleContentSorted = _.orderBy(
+    itemsWithArticleContent,
+    ['publishedAt'],
+    ['desc']
+  );
 
   return {
     pageNumber,
     totalPages,
-    items
+    items: itemsWithArticleContentSorted
   };
 };
+
+async function getPageItemsWithArticleContent(items) {
+  return Promise.all(
+    items.map(async item => {
+      const article = await parseArticle(item.newsPageURL);
+
+      return {
+        ...item,
+        ...article
+      };
+    })
+  );
+}
 
 function getPageItems($articles) {
   return $articles

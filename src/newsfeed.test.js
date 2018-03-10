@@ -1,14 +1,53 @@
 jest.mock('./fetch');
+jest.mock('./article');
 
 const {readFileSync} = require('fs');
 const {resolve} = require('path');
 const _ = require('lodash');
 const {getNewsFeedPageHTML} = require('./fetch');
+const {parseArticle} = require('./article');
 const {parsePage} = require('./newsfeed');
+
+const mockArticle = {
+  author: `Відділ інформації та зв'язків з громадськістю`,
+  content:
+    'Ювілейна\nконференція Ради молодих вчених «Економічний і соціальний розвиток України в ХХІ\nстолітті:',
+  attachments: [
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5065',
+      name: 'Інформаційний лист',
+      fileSizeBytes: 311664,
+      downloadsCount: 12
+    },
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5063',
+      name: 'Information letter',
+      fileSizeBytes: 282869,
+      downloadsCount: 3
+    },
+    {
+      url: 'http://www.tneu.edu.ua/engine/download.php?id=5064',
+      name: 'Заявка на участь',
+      fileSizeBytes: 247265,
+      downloadsCount: 5
+    }
+  ],
+  images: [
+    {
+      fullSizeURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/1520441232_konferenciia1.jpg',
+      thumbnailURL: '/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg'
+    }
+  ]
+};
 
 beforeAll(() => {
   const mockHtml = readFileSync(resolve(__dirname, './newsfeed.mock.html'));
   getNewsFeedPageHTML.mockReturnValue(mockHtml);
+  parseArticle.mockReturnValue(mockArticle);
+});
+
+beforeEach(() => {
+  parseArticle.mockClear();
 });
 
 it('should export parsePage function', () => {
@@ -30,6 +69,11 @@ it('should return list of 15 parsed news from page', async () => {
   expect(news.items).toHaveLength(15);
 });
 
+it('should call parseArticle 15 times for each item', async () => {
+  await parsePage(1);
+  expect(parseArticle).toHaveBeenCalledTimes(15);
+});
+
 it('should parse date and time properly', async () => {
   const news = await parsePage(1);
   expect(news.items[1]).toEqual({
@@ -43,7 +87,8 @@ it('should parse date and time properly', async () => {
     imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg',
     newsPageURL:
       'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html',
-    publishedAt: new Date('Wed Mar 07 2018 18:48:00 GMT+0200 (EET)')
+    publishedAt: new Date('Wed Mar 07 2018 18:48:00 GMT+0200 (EET)'),
+    ...mockArticle
   });
 });
 
@@ -62,7 +107,8 @@ it('should return news array in valid format', async () => {
       topic: 'Новини',
       primaryTopic: 'Новини',
       secondaryTopic: '',
-      newsPageURL: 'http://www.tneu.edu.ua/news/12904-zi-sviatom-vesny-dorogi-zhinky.html'
+      newsPageURL: 'http://www.tneu.edu.ua/news/12904-zi-sviatom-vesny-dorogi-zhinky.html',
+      ...mockArticle
     },
     {
       title:
@@ -74,7 +120,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Конференції ТНЕУ',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html'
+        'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html',
+      ...mockArticle
     },
     {
       title: 'Запрошуємо на арт-зустріч «НеФормат»!',
@@ -85,7 +132,8 @@ it('should return news array in valid format', async () => {
       topic: 'Новини / Оголошення',
       primaryTopic: 'Новини',
       secondaryTopic: 'Оголошення',
-      newsPageURL: 'http://www.tneu.edu.ua/news/12907-zaproshuiemo-na-art-zustrich-neformat.html'
+      newsPageURL: 'http://www.tneu.edu.ua/news/12907-zaproshuiemo-na-art-zustrich-neformat.html',
+      ...mockArticle
     },
     {
       title: 'До уваги студентів груп 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17!',
@@ -96,7 +144,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Оголошення',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12906-do-uvagy-studentiv-grup-1-2-3-4-6-7-8-9-10-11-12-13-14-15-16-17.html'
+        'http://www.tneu.edu.ua/news/12906-do-uvagy-studentiv-grup-1-2-3-4-6-7-8-9-10-11-12-13-14-15-16-17.html',
+      ...mockArticle
     },
     {
       title:
@@ -108,7 +157,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Олімпіади',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12790-zaproshuiemo-do-uchasti-u-ii-etapi-vseukrainskoi-studentskoi-olimpiady-zi-specialnosti-menedzhment-organizacii-i-administruvannia.html'
+        'http://www.tneu.edu.ua/news/12790-zaproshuiemo-do-uchasti-u-ii-etapi-vseukrainskoi-studentskoi-olimpiady-zi-specialnosti-menedzhment-organizacii-i-administruvannia.html',
+      ...mockArticle
     },
     {
       title:
@@ -121,7 +171,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Оголошення',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12905-do-uvagy-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-ta-pedagogichnymy-pracivnykamy-grup-1-2-4-5.html'
+        'http://www.tneu.edu.ua/news/12905-do-uvagy-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-ta-pedagogichnymy-pracivnykamy-grup-1-2-4-5.html',
+      ...mockArticle
     },
     {
       title: 'До уваги студентів!',
@@ -131,7 +182,8 @@ it('should return news array in valid format', async () => {
       topic: 'Новини / Оголошення',
       primaryTopic: 'Новини',
       secondaryTopic: 'Оголошення',
-      newsPageURL: 'http://www.tneu.edu.ua/news/12903-do-uvagy-studentiv.html'
+      newsPageURL: 'http://www.tneu.edu.ua/news/12903-do-uvagy-studentiv.html',
+      ...mockArticle
     },
     {
       title:
@@ -144,7 +196,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Конференції ТНЕУ',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12902-konkurentospromozhnist-vitchyznianyh-pidpryiemstv-nadavachiv-poslug-gromadskogo-transportu-aktualni-problemy-ta-ievropeiskyi-dosvid-ih-vyrishennia.html'
+        'http://www.tneu.edu.ua/news/12902-konkurentospromozhnist-vitchyznianyh-pidpryiemstv-nadavachiv-poslug-gromadskogo-transportu-aktualni-problemy-ta-ievropeiskyi-dosvid-ih-vyrishennia.html',
+      ...mockArticle
     },
     {
       title: '7 березня',
@@ -154,7 +207,8 @@ it('should return news array in valid format', async () => {
       topic: 'Новини / Цей день в історії',
       primaryTopic: 'Новини',
       secondaryTopic: 'Цей день в історії',
-      newsPageURL: 'http://www.tneu.edu.ua/news/12901-7-bereznia.html'
+      newsPageURL: 'http://www.tneu.edu.ua/news/12901-7-bereznia.html',
+      ...mockArticle
     },
     {
       title: '«Облік, оподаткування і контроль: сучасний стан та напрями розвитку»',
@@ -165,7 +219,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: 'Конференції в Україні та закордоном',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12900-oblik-opodatkuvannia-i-kontrol-suchasnyi-stan-ta-napriamy-rozvytku.html'
+        'http://www.tneu.edu.ua/news/12900-oblik-opodatkuvannia-i-kontrol-suchasnyi-stan-ta-napriamy-rozvytku.html',
+      ...mockArticle
     },
     {
       title:
@@ -177,7 +232,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: '',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12899-vidbulasia-14-mizhnarodna-konferenciia-advanced-trends-in-radioelectronics-telecommunications-and-computer-engineering-tcset2018.html'
+        'http://www.tneu.edu.ua/news/12899-vidbulasia-14-mizhnarodna-konferenciia-advanced-trends-in-radioelectronics-telecommunications-and-computer-engineering-tcset2018.html',
+      ...mockArticle
     },
     {
       title: 'Відбулося засідання організаційного комітету з проведення виборів ректора ТНЕУ',
@@ -189,7 +245,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: '',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12897-vidbulosia-zasidannia-organizaciinogo-komitetu-z-provedennia-vyboriv-rektora-tneu.html'
+        'http://www.tneu.edu.ua/news/12897-vidbulosia-zasidannia-organizaciinogo-komitetu-z-provedennia-vyboriv-rektora-tneu.html',
+      ...mockArticle
     },
     {
       title:
@@ -201,7 +258,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: '',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12898-u-respublici-polscha-vidkryto-mizhnarodnyi-centr-osvity-ta-rozvytku-tneu-i-instytutu-ievropeiskoi-integracii.html'
+        'http://www.tneu.edu.ua/news/12898-u-respublici-polscha-vidkryto-mizhnarodnyi-centr-osvity-ta-rozvytku-tneu-i-instytutu-ievropeiskoi-integracii.html',
+      ...mockArticle
     },
     {
       title:
@@ -213,7 +271,8 @@ it('should return news array in valid format', async () => {
       primaryTopic: 'Новини',
       secondaryTopic: '',
       newsPageURL:
-        'http://www.tneu.edu.ua/news/12896-do-uvagy-studentiv-grup-5-20-21-ta-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-i-pedagogichnymy-pracivnykamy-grupy-3.html'
+        'http://www.tneu.edu.ua/news/12896-do-uvagy-studentiv-grup-5-20-21-ta-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-i-pedagogichnymy-pracivnykamy-grupy-3.html',
+      ...mockArticle
     },
     {
       title: 'Вітаємо!',
@@ -224,7 +283,8 @@ it('should return news array in valid format', async () => {
       topic: 'Новини / Спорт',
       primaryTopic: 'Новини',
       secondaryTopic: 'Спорт',
-      newsPageURL: 'http://www.tneu.edu.ua/news/12895-vitaiemo.html'
+      newsPageURL: 'http://www.tneu.edu.ua/news/12895-vitaiemo.html',
+      ...mockArticle
     }
   ]);
 });

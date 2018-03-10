@@ -9,11 +9,11 @@ async function parsePage(pageNumber) {
   const articles = $('#dle-content').find('.well');
 
   articles.each(function() {
-    const title = $(this)
-      .find('h4')
-      .text();
+    const article = $(this);
+    const title = article.find('h4').text();
+    const description = article.find('.timg').text();
 
-    console.log(title);
+    console.log({title, description});
   });
 }
 

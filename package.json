@@ -41,6 +41,9 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "node-fetch": "^2.1.1"
+    "date-fns": "^1.29.0",
+    "lodash": "^4.17.5",
+    "node-fetch": "^2.1.1",
+    "normalize-space-x": "^3.0.0"
   }
 }

@@ -17,8 +17,15 @@
     "lint": "eslint . --fix",
     "test": "jest"
   },
-  "files": ["index.js"],
+  "files": ["src/"],
   "keywords": [],
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "date-fns": "^1.29.0",
+    "lodash": "^4.17.5",
+    "node-fetch": "^2.1.1",
+    "normalize-space-x": "^3.0.0"
+  },
   "devDependencies": {
     "eslint": "^4.15.0",
     "eslint-config-prettier": "^2.9.0",
@@ -28,9 +35,6 @@
     "lint-staged": "^6.0.0",
     "prettier": "^1.9.2"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -39,11 +43,7 @@
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "date-fns": "^1.29.0",
-    "lodash": "^4.17.5",
-    "node-fetch": "^2.1.1",
-    "normalize-space-x": "^3.0.0"
+  "jest": {
+    "testEnvironment": "node"
   }
 }

@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
-async function parsePage(pageNumber) {
+module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await fetch(`http://www.tneu.edu.ua/news/page/${pageNumber}`).then(resp =>
     resp.text()
   );
@@ -15,6 +15,4 @@ async function parsePage(pageNumber) {
 
     console.log({title, description});
   });
-}
-
-parsePage(1);
+};

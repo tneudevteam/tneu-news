@@ -20,6 +20,11 @@ it('should return pageNumber of parsed page', async () => {
   expect(news.pageNumber).toEqual(1);
 });
 
+it('should return number of total pagees', async () => {
+  const news = await parsePage(1);
+  expect(news.totalPages).toEqual(508);
+});
+
 it('should return list of 15 parsed news from page', async () => {
   const news = await parsePage(1);
   expect(news.items).toHaveLength(15);

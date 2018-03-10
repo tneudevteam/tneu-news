@@ -11,9 +11,11 @@ module.exports.parsePage = async function parsePage(pageNumber) {
   const $ = cheerio.load(html);
   const articles = $('#dle-content').find('.well');
   const items = getPageItems(articles);
+  const totalPages = getTotalPages($);
 
   return {
     pageNumber,
+    totalPages,
     items
   };
 };
@@ -66,4 +68,14 @@ function getNewsPageURL($article) {
 function getImageURL($article) {
   const relativeImageURL = $article.find('img').attr('src');
   return `http://www.tneu.edu.ua${relativeImageURL}`;
+}
+
+function getTotalPages($) {
+  return Number(
+    $('.pagination > li')
+      .first()
+      .find('a')
+      .last()
+      .text()
+  );
 }

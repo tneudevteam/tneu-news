@@ -12,11 +12,18 @@ module.exports.getPublishedAtDateFromSubtitle = function(subtitle) {
     return subDays(new Date(), 1);
   }
 
-  const dateRaw = _.head(subtitle.match(dateRegex));
-  const dateWithDayFirst = swapDayAndMonthInDate(dateRaw);
+  const dateString = getDateStringFromSubtitle(subtitle);
 
-  return parse(dateWithDayFirst);
+  return parseDateString(dateString);
 };
+
+function getDateStringFromSubtitle(subtitle) {
+  return _.head(subtitle.match(dateRegex));
+}
+
+function parseDateString(dateString) {
+  return parse(swapDayAndMonthInDate(dateString));
+}
 
 function swapDayAndMonthInDate(date) {
   return date.replace(/(\d+)-(\d+)-(\d+)/, '$2-$1-$3');

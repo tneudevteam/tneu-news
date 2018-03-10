@@ -17,7 +17,7 @@
     "lint": "eslint . --fix",
     "test": "jest"
   },
-  "files": ["src/", "!src/*.mock.html"],
+  "files": ["src/", "!src/*.mock.html", "!src/*.test.js"],
   "keywords": [],
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",

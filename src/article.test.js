@@ -6,7 +6,7 @@ const {getNewsArticlePageHTML} = require('./fetch');
 const {parseArticle} = require('./article');
 
 beforeAll(() => {
-  const mockHtml = readFileSync(resolve(__dirname, './article.mock.html'));
+  const mockHtml = readFileSync(resolve(__dirname, './article-attachments.mock.html'));
   getNewsArticlePageHTML.mockReturnValue(mockHtml);
 });
 

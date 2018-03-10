@@ -1,5 +1,5 @@
 {
-  "name": "tneu-news",
+  "name": "@tneu/news",
   "version": "0.0.0",
   "description": "TNEU News Parser",
   "license": "MIT",

@@ -1,17 +1,17 @@
-# tneu-news [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/tneu-news.svg)](https://circleci.com/gh/vladgolubev/tneu-news) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
+# @tneu/news [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/tneu-news.svg)](https://circleci.com/gh/vladgolubev/tneu-news) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
 > TNEU News Parser
 
 ## Install
 
 ```
-$ yarn add tneu-news
+$ yarn add @tneu/news
 ```
 
 ## Usage
 
 ```js
-const tneuNews = require('tneu-news');
+const tneuNews = require('@tneu/news');
 
 tneuNews('unicorns');
 //=> 'unicorns & rainbows'

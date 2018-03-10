@@ -1,4 +1,4 @@
-# @tneu/news [![CircleCI](https://img.shields.io/circleci/project/github/vladgolubev/tneu-news.svg)](https://circleci.com/gh/vladgolubev/tneu-news) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
+# @tneu/news [![CircleCI](https://img.shields.io/circleci/project/github/tneudevteam/tneu-news.svg)](https://circleci.com/gh/tneudevteam/tneu-news) ![](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
 
 > TNEU News Parser
 
@@ -50,25 +50,6 @@ const item = {
   }]
 }
 ```
-
-## API
-
-### tneuNews(input, [options])
-
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-##### foo
-
-Type: `boolean`<br>
-Default: `false`
-
-Lorem ipsum.
 
 ## License
 

@@ -39,6 +39,8 @@ it('should parse date and time properly', async () => {
     publishedAt: new Date('Tue Jul 03 2018 18:54:00 GMT+0300 (EEST)'),
     imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520415669_267b2322.jpg',
     topic: 'Новини',
+    primaryTopic: 'Новини',
+    secondaryTopic: '',
     newsPageURL: 'http://www.tneu.edu.ua/news/12904-zi-sviatom-vesny-dorogi-zhinky.html'
   });
 });
@@ -56,6 +58,8 @@ it('should return news array in valid format', async () => {
         'Весна – це завше час нових надій і сподівань, час, коли пробуджується природа, огортаючи все навкруги теплом і яскравими фарбами. Варто лише трохи зачекати і ясні сонячні промені будуть тішити нас й заряджати позитивним настроєм, додаючи життєвої енергії та бадьорості.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520415669_267b2322.jpg',
       topic: 'Новини',
+      primaryTopic: 'Новини',
+      secondaryTopic: '',
       newsPageURL: 'http://www.tneu.edu.ua/news/12904-zi-sviatom-vesny-dorogi-zhinky.html'
     },
     {
@@ -65,6 +69,8 @@ it('should return news array in valid format', async () => {
         'Ювілейна конференція Ради молодих вчених «Економічний і соціальний розвиток України в ХХІ столітті: національна візія та виклики глобалізації» відбудеться 29-30 березня 2018 року за адресою: м. Тернопіль, вул. Львівська, 11а (11 корпус університету).',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520441232_konferenciia1.jpg',
       topic: 'Новини / Конференції ТНЕУ',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Конференції ТНЕУ',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12908-zaproshuiemo-molodyh-naukovciv-vchenyh-aspirantiv-sluhachiv-magistratury-vziaty-uchast-u-yuvileinii-konferencii-rady-molodyh-vchenyh-tneu.html'
     },
@@ -75,6 +81,8 @@ it('should return news array in valid format', async () => {
       imageURL:
         'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520440823_24_mic_contest_2012.jpg',
       topic: 'Новини / Оголошення',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Оголошення',
       newsPageURL: 'http://www.tneu.edu.ua/news/12907-zaproshuiemo-na-art-zustrich-neformat.html'
     },
     {
@@ -83,6 +91,8 @@ it('should return news array in valid format', async () => {
         'Повідомляємо, що 19-22 березня 2018 року відбудуться Збори академічної громади студентів груп 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 по обранню виборних представників із числа студентів для участі у виборах ректора ТНЕУ, що мають відбутися 25 квітня 2018 року.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520439878_769.jpg',
       topic: 'Новини / Оголошення',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Оголошення',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12906-do-uvagy-studentiv-grup-1-2-3-4-6-7-8-9-10-11-12-13-14-15-16-17.html'
     },
@@ -93,6 +103,8 @@ it('should return news array in valid format', async () => {
         'На виконання наказу Міністерства освіти і науки України № 1572 від 06.12.2017 р. «Про проведення Всеукраїнської студентської олімпіади у 2017/2018 навчальному році» на базі Тернопільського національного економічного університету 25-27 квітня 2018 р. відбудеться II етап Всеукраїнської студентської олімпіади зі спеціальності «Менеджмент організацій і адміністрування» (за видами економічної діяльності).',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-02/thumbs/1518002102_olimpiada.jpg',
       topic: 'Новини / Олімпіади',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Олімпіади',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12790-zaproshuiemo-do-uchasti-u-ii-etapi-vseukrainskoi-studentskoi-olimpiady-zi-specialnosti-menedzhment-organizacii-i-administruvannia.html'
     },
@@ -104,6 +116,8 @@ it('should return news array in valid format', async () => {
       imageURL:
         'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520438119_yak-zakinchiti-list.jpg',
       topic: 'Новини / Оголошення',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Оголошення',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12905-do-uvagy-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-ta-pedagogichnymy-pracivnykamy-grup-1-2-4-5.html'
     },
@@ -113,6 +127,8 @@ it('should return news array in valid format', async () => {
         'Центр підготовки офіцерів запасу розпочинає набір на навчання на військовій кафедрі Національної академії сухопутних військ. Студентів, котрі виявили бажання проходити військову підготовку на військовій кафедрі, просимо ознайомитися з правилами конкурсного відбору, переліком необхідних документів, а також термінами їх подачі на сайті ТНЕУ ЦПОЗ або за адресою: Микулинецька 46а, каб. 604.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520410052_1245.jpg',
       topic: 'Новини / Оголошення',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Оголошення',
       newsPageURL: 'http://www.tneu.edu.ua/news/12903-do-uvagy-studentiv.html'
     },
     {
@@ -123,6 +139,8 @@ it('should return news array in valid format', async () => {
       imageURL:
         'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520409190_konferenci_resized.jpg',
       topic: 'Новини / Конференції ТНЕУ',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Конференції ТНЕУ',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12902-konkurentospromozhnist-vitchyznianyh-pidpryiemstv-nadavachiv-poslug-gromadskogo-transportu-aktualni-problemy-ta-ievropeiskyi-dosvid-ih-vyrishennia.html'
     },
@@ -132,6 +150,8 @@ it('should return news array in valid format', async () => {
         'Найнеприємніший факт стосовно Всесвіту полягає не в тому, що він налаштований вороже, а в тому що йому байдуже (Стенлі Кубрик)',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520408756_slaid5.jpg',
       topic: 'Новини / Цей день в історії',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Цей день в історії',
       newsPageURL: 'http://www.tneu.edu.ua/news/12901-7-bereznia.html'
     },
     {
@@ -140,6 +160,8 @@ it('should return news array in valid format', async () => {
         'Шановні колеги! Запрошуємо Вас взяти участь у Всеукраїнській науково-практичній інтернет-конференції «Облік, оподаткування і контроль: сучасний стан та напрями розвитку», яка відбудеться 22 березня 2018 р. у Черкаському інституті ДВНЗ «Університет банківської справи».',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520408682_conf3.jpg',
       topic: 'Новини / Конференції в Україні та закордоном',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Конференції в Україні та закордоном',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12900-oblik-opodatkuvannia-i-kontrol-suchasnyi-stan-ta-napriamy-rozvytku.html'
     },
@@ -150,6 +172,8 @@ it('should return news array in valid format', async () => {
         'Упродовж 20-24 лютого 2018 р. в смт Славське Львівської області відбулася 14 Міжнародна конференція «Advanced Trends in Radioelectronics, Telecommunications and Computer Engineering (TCSET)». Головна мета конференції – представлення нових результатів досліджень, нових тенденцій у науці і техніці, обмін науковими ідеями.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520408195_main.jpg',
       topic: 'Новини',
+      primaryTopic: 'Новини',
+      secondaryTopic: '',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12899-vidbulasia-14-mizhnarodna-konferenciia-advanced-trends-in-radioelectronics-telecommunications-and-computer-engineering-tcset2018.html'
     },
@@ -160,6 +184,8 @@ it('should return news array in valid format', async () => {
       imageURL:
         'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520353311_pexels-photo-302423.jpeg',
       topic: 'Новини',
+      primaryTopic: 'Новини',
+      secondaryTopic: '',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12897-vidbulosia-zasidannia-organizaciinogo-komitetu-z-provedennia-vyboriv-rektora-tneu.html'
     },
@@ -170,6 +196,8 @@ it('should return news array in valid format', async () => {
         'Шостого березня 2018 р. Тернопільським національним економічним університетом спільно з Інститутом європейської інтеграції у Варшаві під патронатом Посольства України в Польщі та Тернопільської обласної державної адміністрації було створено Міжнародний центр освіти та розвитку.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520359364_dsc_6427.jpg',
       topic: 'Новини',
+      primaryTopic: 'Новини',
+      secondaryTopic: '',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12898-u-respublici-polscha-vidkryto-mizhnarodnyi-centr-osvity-ta-rozvytku-tneu-i-instytutu-ievropeiskoi-integracii.html'
     },
@@ -180,6 +208,8 @@ it('should return news array in valid format', async () => {
         'Повідомляємо, що 16 березня 2018 року відбудуться Збори академічної громади студентів груп 5, 20, 21 та Загальні збори трудового колективу крупи 3 по обранню виборних представників із числа студентів та штатних працівників, які не є науковими, науково-педагогічними і педагогічними працівниками, для участі у виборах ректора Тернопільського національного економічного університету, що відбудуться 25 квітня 2018 року.',
       imageURL: 'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520351919_659597.jpg',
       topic: 'Новини',
+      primaryTopic: 'Новини',
+      secondaryTopic: '',
       newsPageURL:
         'http://www.tneu.edu.ua/news/12896-do-uvagy-studentiv-grup-5-20-21-ta-shtatnyh-pracivnykiv-iaki-ne-ie-naukovymy-naukovo-pedagogichnymy-i-pedagogichnymy-pracivnykamy-grupy-3.html'
     },
@@ -190,6 +220,8 @@ it('should return news array in valid format', async () => {
       imageURL:
         'http://www.tneu.edu.ua/uploads/posts/2018-03/thumbs/1520334936_image-0-02-05-870.jpg',
       topic: 'Новини / Спорт',
+      primaryTopic: 'Новини ',
+      secondaryTopic: ' Спорт',
       newsPageURL: 'http://www.tneu.edu.ua/news/12895-vitaiemo.html'
     }
   ]);

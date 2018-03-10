@@ -29,10 +29,21 @@ function getPageItems($articles) {
       const subtitle = getSubtitle(article);
       const publishedAt = getPublishedAt(subtitle);
       const topic = getTopic(subtitle);
+      const primaryTopic = getPrimaryTopic(topic);
+      const secondaryTopic = getSecondaryTopic(topic);
       const newsPageURL = getNewsPageURL(article);
       const imageURL = getImageURL(article);
 
-      return {title, description, publishedAt, imageURL, topic, newsPageURL};
+      return {
+        title,
+        description,
+        publishedAt,
+        imageURL,
+        topic,
+        primaryTopic,
+        secondaryTopic,
+        newsPageURL
+      };
     })
     .get();
 }
@@ -56,6 +67,26 @@ function getPublishedAt(subtitle) {
 
 function getTopic(subtitle) {
   return normalizeSpace(_.last(subtitle.split(dateRegex)));
+}
+
+function getPrimaryTopic(topic) {
+  if (!hasSubtopic(topic)) {
+    return topic;
+  }
+
+  return _.head(topic.split('/'));
+}
+
+function getSecondaryTopic(topic) {
+  if (!hasSubtopic(topic)) {
+    return '';
+  }
+
+  return _.last(topic.split('/'));
+}
+
+function hasSubtopic(topic) {
+  return topic.includes('/');
 }
 
 function getNewsPageURL($article) {

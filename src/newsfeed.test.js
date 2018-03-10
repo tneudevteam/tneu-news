@@ -7,7 +7,7 @@ const {getNewsFeedPageHTML} = require('./fetch');
 const {parsePage} = require('./newsfeed');
 
 beforeAll(() => {
-  const mockHtml = readFileSync(resolve(__dirname, './news-list.mock.html'));
+  const mockHtml = readFileSync(resolve(__dirname, './newsfeed.mock.html'));
   getNewsFeedPageHTML.mockReturnValue(mockHtml);
 });
 
@@ -20,7 +20,7 @@ it('should return pageNumber of parsed page', async () => {
   expect(news.pageNumber).toEqual(1);
 });
 
-it('should return number of total pagees', async () => {
+it('should return number of total pages', async () => {
   const news = await parsePage(1);
   expect(news.totalPages).toEqual(508);
 });

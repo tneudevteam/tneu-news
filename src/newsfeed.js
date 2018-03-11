@@ -4,7 +4,7 @@ const {normalizeSpace} = require('normalize-space-x');
 const {getNewsFeedPageHTML} = require('./fetch');
 const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./parsers/topic');
 const {getPublishedAtDateFromSubtitle} = require('./parsers/date');
-const {parseArticle} = require('./article');
+const {parseArticle, getArticlePlaceholder} = require('./article');
 
 module.exports.getTotalPages = async function() {
   const html = await getNewsFeedPageHTML(1);
@@ -38,6 +38,13 @@ module.exports.parsePage = async function parsePage(pageNumber) {
 async function getPageItemsWithArticleContent(items) {
   return Promise.all(
     items.map(async item => {
+      if (_.isEmpty(item.newsPageURL)) {
+        return {
+          ...item,
+          ...getArticlePlaceholder()
+        };
+      }
+
       const article = await parseArticle(item.newsPageURL);
 
       return {

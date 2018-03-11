@@ -4,6 +4,16 @@ const bytes = require('bytes');
 const {normalizeSpace} = require('normalize-space-x');
 const {getNewsArticlePageHTML} = require('./fetch');
 
+// for cases when newsfeed item doesn't have a url to full page
+module.exports.getArticlePlaceholder = function() {
+  return {
+    author: 'ТНЕУ',
+    content: '',
+    attachments: [],
+    images: []
+  };
+};
+
 module.exports.parseArticle = async function(url) {
   const html = await getNewsArticlePageHTML(url);
   const $ = cheerio.load(html);

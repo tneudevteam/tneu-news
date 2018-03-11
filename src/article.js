@@ -25,7 +25,7 @@ function getAuthor(subtitle) {
 function getContent($article) {
   const textRaw = $article.find('.timg').text();
   const textLines = textRaw.split('\n');
-  const textLinesNormalized = textLines.map(normalizeSpace);
+  const textLinesNormalized = _.compact(textLines.map(normalizeSpace));
 
   return textLinesNormalized.join('\n');
 }

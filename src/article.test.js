@@ -5,9 +5,13 @@ const {resolve} = require('path');
 const {getNewsArticlePageHTML} = require('./fetch');
 const {parseArticle} = require('./article');
 
-const mockHtmlAttachments = readFileSync(resolve(__dirname, './article-attachments.mock.html'));
-const mockHtmlGallery = readFileSync(resolve(__dirname, './article-gallery.mock.html'));
-const mockHtmlManyNewlines = readFileSync(resolve(__dirname, './article-many-newlines.mock.html'));
+const mockHtmlAttachments = readFileSync(
+  resolve(__dirname, './test-html/article-attachments.mock.html')
+);
+const mockHtmlGallery = readFileSync(resolve(__dirname, './test-html/article-gallery.mock.html'));
+const mockHtmlManyNewlines = readFileSync(
+  resolve(__dirname, './test-html/article-many-newlines.mock.html')
+);
 
 beforeAll(() => {
   getNewsArticlePageHTML.mockReturnValue(mockHtmlAttachments);

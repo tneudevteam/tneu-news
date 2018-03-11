@@ -41,7 +41,7 @@ const mockArticle = {
 };
 
 beforeAll(() => {
-  const mockHtml = readFileSync(resolve(__dirname, './newsfeed.mock.html'));
+  const mockHtml = readFileSync(resolve(__dirname, './test-html/newsfeed.mock.html'));
   getNewsFeedPageHTML.mockReturnValue(mockHtml);
   parseArticle.mockReturnValue(mockArticle);
 });

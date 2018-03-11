@@ -59,6 +59,7 @@ function getPageItems($articles) {
         title,
         description,
         publishedAt,
+        publishedAtTimestamp: publishedAt.valueOf(),
         topic,
         primaryTopic,
         secondaryTopic,

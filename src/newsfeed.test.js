@@ -88,7 +88,9 @@ it('should return news array in valid format', async () => {
   const news = await parsePage(1);
 
   // hack to avoid cumbersome dates in this test which are tested above
-  const newsWithoutDates = _.map(news.items, i => _.omit(i, 'publishedAt'));
+  const newsWithoutDates = _.map(news.items, i =>
+    _.omit(i, ['publishedAt', 'publishedAtTimestamp'])
+  );
 
   expect(newsWithoutDates).toEqual([
     {

@@ -22,6 +22,8 @@ module.exports.parsePage = async function parsePage(pageNumber) {
   return {
     pageNumber,
     totalPages,
+    hasPrevious: pageNumber !== 1,
+    hasNext: pageNumber < totalPages,
     items: itemsWithArticleContentSorted
   };
 };

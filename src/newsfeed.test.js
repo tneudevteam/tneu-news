@@ -59,6 +59,16 @@ it('should return pageNumber of parsed page', async () => {
   expect(news.pageNumber).toEqual(1);
 });
 
+it('should return hasPrevious boolean', async () => {
+  const news = await parsePage(1);
+  expect(news.hasPrevious).toEqual(false);
+});
+
+it('should return hasNext boolean', async () => {
+  const news = await parsePage(1);
+  expect(news.hasNext).toEqual(true);
+});
+
 it('should return number of total pages', async () => {
   const news = await parsePage(1);
   expect(news.totalPages).toEqual(508);

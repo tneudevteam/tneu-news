@@ -13,7 +13,7 @@ $ yarn add @tneu/news
 ```js
 const {parsePage} = require('@tneu/news');
 
-const page = await parsePage(1); // returns {pageNumber, totalPages, items}
+const page = await parsePage(1); // returns {items, pageNumber, totalPages, hasPrevious, hasNext}
 ```
 
 And the object in `items` array looks like:

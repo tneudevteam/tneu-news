@@ -73,7 +73,7 @@ function getImages($article) {
 
       return {
         fullSizeURL: $a.attr('href'),
-        thumbnailURL: $img.attr('src')
+        thumbnailURL: `http://www.tneu.edu.ua${$img.attr('src')}`
       };
     })
     .get();

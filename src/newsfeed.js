@@ -6,6 +6,13 @@ const {getSecondaryTopic, getPrimaryTopic, getTopicFromSubtitle} = require('./pa
 const {getPublishedAtDateFromSubtitle} = require('./parsers/date');
 const {parseArticle} = require('./article');
 
+module.exports.getTotalPages = async function() {
+  const html = await getNewsFeedPageHTML(1);
+  const $ = cheerio.load(html);
+
+  return getTotalPages($);
+};
+
 module.exports.parsePage = async function parsePage(pageNumber) {
   const html = await getNewsFeedPageHTML(pageNumber);
   const $ = cheerio.load(html);

@@ -11,8 +11,9 @@ $ yarn add @tneu/news
 ## Usage
 
 ```js
-const {parsePage} = require('@tneu/news');
+const {parsePage, getTotalPages} = require('@tneu/news');
 
+const totalPages = await getTotalPages(); // 508
 const page = await parsePage(1); // returns {items, pageNumber, totalPages, hasPrevious, hasNext}
 ```
 

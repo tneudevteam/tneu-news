@@ -11,3 +11,5 @@ module.exports.getNewsArticlePageHTML = function(url) {
 async function getPageHTML(url) {
   return fetch(url).then(resp => resp.text());
 }
+
+getPageHTML('http://www.tneu.edu.ua/news/12881-5-liutogo.html').then(console.log);

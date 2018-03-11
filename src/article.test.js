@@ -7,6 +7,7 @@ const {parseArticle} = require('./article');
 
 const mockHtmlAttachments = readFileSync(resolve(__dirname, './article-attachments.mock.html'));
 const mockHtmlGallery = readFileSync(resolve(__dirname, './article-gallery.mock.html'));
+const mockHtmlManyNewlines = readFileSync(resolve(__dirname, './article-many-newlines.mock.html'));
 
 beforeAll(() => {
   getNewsArticlePageHTML.mockReturnValue(mockHtmlAttachments);
@@ -180,5 +181,58 @@ it('should return article content', async () => {
 0967424559
 (Шупа Леся Зіновіївна).
 e-mail: tneu.rmv.conf@gmal.com`
+  );
+});
+
+it('should return article content w/ many empty lines', async () => {
+  getNewsArticlePageHTML.mockReturnValueOnce(mockHtmlManyNewlines);
+
+  const {content} = await parseArticle('');
+  expect(content).toEqual(
+    `Поспішні висновки безпечніше
+робити в уяві, а не наяву (Деніел
+Канеман)
+
+
+
+
+
+
+
+Тернопільщина
+
+
+
+
+
+
+
+
+Україна
+
+
+
+
+
+
+
+
+
+Світ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+`
   );
 });

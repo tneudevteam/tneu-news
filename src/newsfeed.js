@@ -73,7 +73,7 @@ function getPageItems($articles) {
         title,
         description,
         publishedAt,
-        publishedAtTimestamp: publishedAt.valueOf(),
+        publishedAtTimestamp: Math.round(publishedAt.valueOf() / 1000),
         topic,
         primaryTopic,
         secondaryTopic,

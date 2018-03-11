@@ -38,7 +38,7 @@ module.exports.parsePage = async function parsePage(pageNumber) {
 async function getPageItemsWithArticleContent(items) {
   return Promise.all(
     items.map(async item => {
-      if (_.isEmpty(item.newsPageURL)) {
+      if (_.isEmpty(item.newsPageURL) || !_.startsWith(item.newsPageURL, 'http')) {
         return {
           ...item,
           ...getArticlePlaceholder()
